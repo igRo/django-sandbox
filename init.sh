@@ -1,22 +1,17 @@
 #!/bin/sh
 
+echo copying application files...
+cp -fR $(dirname $0)/web/ ~/web/
+
 echo creating project structure...
-mkdir -p ~/web/{etc,uploads,public}/
+mkdir -p ~/web/{uploads,public}/
 mkdir -p ~/web/public/{img,js,css}/
 
-echo copying and linking nginx configuration file...
-cp -f $(dirname $0)/nginx.conf ~/web/etc/nginx.conf
+echo linking configuration files...
 sudo ln -sf ~/web/etc/nginx.conf /etc/nginx/sites-enabled/default
+sudo ln -sf ~/web/etc/hello.conf /etc/gunicorn.d/hello
+sudo ln -sf ~/web/etc/ask.conf /etc/gunicorn.d/ask
 
-echo restarting nginx...
+echo restarting daemons...
 sudo /etc/init.d/nginx restart
-
-echo copying and linking gunicorn configuration file...
-cp -f $(dirname $0)/hello.py.conf ~/web/etc/hello.py
-sudo ln -sf ~/web/etc/hello.py /etc/gunicorn.d/hello.py
-
-echo copying wsgi application to working dir...
-cp -f $(dirname $0)/hello.py ~/web/hello.py
-
-echo restarting gunicorn...
 sudo /etc/init.d/gunicorn restart
