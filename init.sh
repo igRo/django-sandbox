@@ -19,7 +19,7 @@ sudo pip3 install django
 echo restarting daemons...
 sudo /etc/init.d/nginx restart
 sudo /etc/init.d/gunicorn restart
-sudo /etc/init.d/mysql restart
+sudo /etc/init.d/mysql start
 
 echo configure mysql
 mysql -uroot -e "CREATE DATABASE IF NOT EXISTS ask_db;"
