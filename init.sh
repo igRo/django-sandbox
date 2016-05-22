@@ -23,6 +23,6 @@ sudo /etc/init.d/mysql start
 
 echo configure mysql
 mysql -uroot -e "CREATE DATABASE IF NOT EXISTS ask_db;"
-mysql -uroot -e "CREATE USER IF NOT EXISTS 'ask_user'@'localhost' IDENTIFIED BY 'change_me';" #PASSWORD EXPIRE
+mysql -uroot -e "CREATE USER 'ask_user'@'localhost' IDENTIFIED BY 'change_me';" #IF NOT EXISTS & PASSWORD EXPIRE
 mysql -uroot -e "GRANT ALL ON ask_db.* TO 'ask_user'@'localhost';"
 mysql -uroot -e "FLUSH PRIVILEGES;"
