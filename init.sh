@@ -19,3 +19,10 @@ sudo pip3 install django
 echo restarting daemons...
 sudo /etc/init.d/nginx restart
 sudo /etc/init.d/gunicorn restart
+sudo /etc/init.d/mysql restart
+
+echo configure mysql
+mysql -uroot -p -e "CREATE DATABASE IF NOT EXISTS ask_db;"
+mysql -uroot -p -e "CREATE USER 'ask_user'@'localhost' IDENTIFIED BY 'change_me';" #PASSWORD EXPIRE
+mysql -uroot -p -e "GRANT ALL ON ask_db.* TO 'ask'@'localhost';"
+mysql -uroot -p -e "FLUSH PRIVILEGES;"
