@@ -1,15 +1,9 @@
-from django.conf.urls import url
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from qa.views import index, popular, question
+admin.autodiscover()
 
-urlpatterns = [
-    url(r'^$', index, name='home'),
-    # url(r'^admin/$', admin.site.urls),
-    # url(r'^login/$', test, name='login'),
-    # url(r'^signup/$', test, name='signup'),
-    url(r'^question/(?P<id>\d+)/$', question, name='question'),
-    # url(r'^ask/$', test, name='ask'),
-    url(r'^popular/$', popular, name='popular'),
-    # url(r'^new/$', test, name='new')
-]
+urlpatterns = patterns('',
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^', include('qa.urls', namespace='qa')),
+                       )
