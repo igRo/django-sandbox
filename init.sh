@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo linking project directory...
-sudo ln -sf $(dirname $0)/web/ ~/web
+sudo ln -sfn $(dirname $0)/web ~/web
 
 # echo creating project structure...
 # mkdir -p ~/web/{uploads,public}/
