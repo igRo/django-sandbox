@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if questions %}
+<section>
+    <ol>
+    {% for question in questions %}
+        <li><a href="{{ question.get_url }}">{{ question }}</a></li>
+    {% endfor %}
+    </ol>
+</section>
+<nav>
+    <ul>
+        {% for page in questions.paginator.page_range %}
+        {% if page == questions.number %}
+        <li class="active">
+            {% else %}
+        <li>
+            {% endif %}
+            <a href="?page={{ page }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
+{% else %}
+<section>
+    <p>No questions</p>
+</section>
+{% endif %}
+{% endblock content %}
