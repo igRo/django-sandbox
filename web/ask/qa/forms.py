@@ -14,10 +14,10 @@ class AskForm(forms.Form):
 
 class AnswerForm(forms.Form):
     text = forms.CharField(min_length=1, widget=forms.Textarea)
-    id = forms.IntegerField()
+    question = forms.IntegerField()
 
     def clean_id(self):
-        id = self.cleaned_data['id']
+        id = self.cleaned_data['question']
         try:
             question = Question.objects.get(pk=id)
         except Question.DoesNotExist:
