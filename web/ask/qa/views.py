@@ -32,14 +32,16 @@ def popular(request, *args, **kwds):
     return render(request, 'list.html', context)
 
 
-@require_GET
 def question(request, slug):
-    try:
-        id = int(slug)
-    except ValueError:
-        raise Http404
-    question = get_object_or_404(Question, pk=id)
-    return render(request, 'single.html', {'question': question})
+    if request.method == 'POST':
+        return answer(request)
+    else:
+        try:
+            id = int(slug)
+        except ValueError:
+            raise Http404
+        question = get_object_or_404(Question, pk=id)
+        return render(request, 'single.html', {'question': question})
 
 
 def ask(request):
