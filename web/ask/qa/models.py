@@ -27,3 +27,6 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return self.text
+
+    def get_url(self):
+        return self.question.get_url()
