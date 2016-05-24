@@ -2,9 +2,10 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import auth
 
 from qa.models import Question
-from qa.forms import AskForm, AnswerForm
+from qa.forms import AskForm, AnswerForm, LoginForm, SignupForm
 
 
 def paginate(request, lines, limit=10):
@@ -56,8 +57,30 @@ def _post(request, Form, template):
     if request.method == 'POST':
         form = Form(request.POST)
         if form.is_valid():
+            form._user = request.user
             post = form.save()
-            return HttpResponseRedirect(post.get_url())
+            url = post.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = Form()
+    return render(request, 'ask.html', {'form': form})
+
+
+def signup(request):
+    return _authorize(request, SignupForm, 'signup.html')
+
+
+def login(request):
+    return _authorize(request, LoginForm, 'login.html')
+
+
+def _authorize(request, Form, template):
+    if request.method == 'POST':
+        form = Form(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth.login(request, user)
+            return HttpResponseRedirect('/')
     else:
         form = Form()
     return render(request, template, {'form': form})

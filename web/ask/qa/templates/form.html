@@ -4,7 +4,7 @@
 </p>
 {% endfor %}
 
-<form method="post" action="/">
+<form method="post" action={% block post_url %}"/"{% endblock %}>
     {% csrf_token %}
     {{ form.as_p }}
     <div>

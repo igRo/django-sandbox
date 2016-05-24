@@ -6,6 +6,6 @@ urlpatterns = patterns('qa.views',
                        url(r'^question/(?P<slug>\w+)/$', 'question', name='question'),
                        url(r'^ask/$', 'ask', name='ask'),
                        url(r'^answer/$', 'answer', name='answer'),
-                       # url(r'^signup/$', 'signup', name='signup'),
-                       # url(r'^login/$', 'login', name='login'),
+                       url(r'^signup/$', 'signup', name='signup'),
+                       url(r'^login/$', 'login', name='login'),
                        )
